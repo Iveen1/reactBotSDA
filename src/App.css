@@ -1,0 +1,113 @@
+.app {
+  background-color: #222;
+  min-height: 100vh;
+  color: #fff;
+  font-size: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+nav {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 250px;
+  gap: 1rem;
+  border-left: solid 1px white;
+}
+
+nav a {
+  padding-left: 10px;
+  color: rgb(255, 0, 0);
+}
+
+main {
+  flex: 1;
+  padding: 0 50px;
+}
+
+.header h2 {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 160px;
+  line-height: 1;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  width: 300px;
+}
+
+.card {
+  font-family: sans-serif;
+  width: 170px;
+  min-height: 220px;
+  max-height: 270px;
+  padding: 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  display: inline-block;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: top;
+  margin: 5px;
+  margin-top: 100px;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, purple, black);
+  background-size: 200% 200%;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card .cardheader{
+  width: 150px;
+  max-height: 100px;
+}
+
+.card .element{
+  margin: 0;
+  padding: 0;
+  width: 150px;
+}
+
+.card .cardbottom{
+  padding: 0;
+  width: 150px;
+  position: absolute;
+  bottom: 0px;
+}
+
+.card img {
+  width: 90px;
+}
+
+.card p {
+  position: relative;
+  font-size: 12px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.card h2, a {
+  margin: 0;
+  font-size: 1vw;
+  word-wrap: break-word;
+  color: white;
+  white-space: normal;
+}
+
+.card h3 {
+  padding: 25px 0 0 0;
+  font-size: 15px;
+}
+
+.article{
+  width: 1000px;
+  display: inline-block;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
