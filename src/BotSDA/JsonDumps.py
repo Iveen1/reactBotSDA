@@ -21,8 +21,12 @@ def writeItemsJson():
     data = SubsDB().getAllItems()
     out = {}
     out['items'] = []
-    for i in data:
-        out['items'].append({'item_name': i[1], 'item_link': i[3], 'price': i[4], 'last_update_date': i[5], 'img_url': i[6]})
+    try:
+        for i in data:
+            print(i)
+            out['items'].append({'id': i[0], 'item_name': i[1], 'item_link': i[3], 'price': i[4][1::], 'currency_type': i[4][0], 'last_update_date': i[5], 'img_url': i[6]})
+    except Exception:
+        out['items'].append({'id': i[0], 'item_name': i[1], 'item_link': i[3], 'price': 'обновление...', 'currency_type': '', 'last_update_date': i[5], 'img_url': i[6]})
 
     saveJson(out, 'itemsDump.json')
 
