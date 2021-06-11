@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useReducer } from "react";
 import Switch from '@material-ui/core/Switch';
 import accountData from '../BotSDA/accountDump.json';
 import itemsData from '../BotSDA/itemsDump.json';
@@ -10,7 +10,7 @@ let items = itemsData.items;
 export default class Page extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { seconds: 10, priceSwitch: false, currencySwitch: false, currentrate: 74};
+    this.state = {seconds: 10, priceSwitch: JSON.parse(localStorage.getItem('priceSwitch')), currencySwitch: JSON.parse(localStorage.getItem('currencySwitch')), currentrate: 74};
     this.priceSortSwitch = this.priceSortSwitch.bind(this);
     this.currencySwitch = this.currencySwitch.bind(this);
   }
@@ -31,10 +31,12 @@ export default class Page extends React.Component {
 
   priceSortSwitch() { 
     this.setState(prevState => ({ priceSwitch: !prevState.priceSwitch}));
+    localStorage.setItem('priceSwitch', !this.state.priceSwitch);
   };
 
   currencySwitch() {
     this.setState(prevState => ({ currencySwitch: !prevState.currencySwitch}));
+    localStorage.setItem('currencySwitch', !this.state.currencySwitch);
   }
 
   pricecheck(price){
@@ -71,7 +73,7 @@ export default class Page extends React.Component {
       return (
         <div class="header">
           <h2>{this.props.name}</h2>
-
+          {console.log(this.state)}
           <p>Сортировка по цене</p> <Switch checked={this.state.priceSwitch} onChange={this.priceSortSwitch} name="priceSwitch"  inputProps={{ 'aria-label': 'secondary checkbox' }}/>
           <p>Изменение валюты</p> <Switch checked={this.state.currencySwitch} onChange={this.currencySwitch} name="currencySwitch"  inputProps={{ 'aria-label': 'secondary checkbox' }}/>
           {items.map(data => (<Card header={<a href={`${data.item_link}`}>{<img src={`${data.img_url}`} />}</a>} second={<h3>Цена: {this.pricecheck(data.price, data.currency_type)}</h3>} fourth={<h3>{data.last_update_date}</h3>} hoveredinfo={data.item_name}></Card>))}
