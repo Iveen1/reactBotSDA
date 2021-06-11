@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React from "react";
 import Switch from '@material-ui/core/Switch';
 import accountData from '../BotSDA/accountDump.json';
 import itemsData from '../BotSDA/itemsDump.json';
@@ -7,10 +7,12 @@ const SteamTotp = require('steam-totp');
 let accounts = accountData.accounts;
 let items = itemsData.items;
 
+// const currency = fetch('https://www.cbr-xml-daily.ru/daily_json.js').then((response) =>  response.json()).then((data) =>{ return data.Valute.USD.Value }).catch();
+
 export default class Page extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {seconds: 10, priceSwitch: JSON.parse(localStorage.getItem('priceSwitch')), currencySwitch: JSON.parse(localStorage.getItem('currencySwitch')), currentrate: 74};
+    this.state = {seconds: 10, priceSwitch: JSON.parse(localStorage.getItem('priceSwitch')), currencySwitch: JSON.parse(localStorage.getItem('currencySwitch')), currentrate: 72};
     this.priceSortSwitch = this.priceSortSwitch.bind(this);
     this.currencySwitch = this.currencySwitch.bind(this);
   }
@@ -23,7 +25,11 @@ export default class Page extends React.Component {
 
   componentDidMount() {
     this.interval = setInterval(() => this.tick(), 1000);
+    fetch('https://www.cbr-xml-daily.ru/daily_json.js') // обновление курса доллара по ЦБ
+        .then(response => response.json())
+        .then(data => this.setState({ currentrate: data.Valute.USD.Value }));
   }
+  
   
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -47,6 +53,7 @@ export default class Page extends React.Component {
     }
     
   }
+
 
   render() {
     if (this.state.priceSwitch){
